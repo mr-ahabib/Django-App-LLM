@@ -71,7 +71,7 @@
         .card-container {
             width: 100%;
             position: relative;
-            margin-top: 1px; 
+            margin-top: 1px;
         }
         .card {
             width: 100%;
@@ -80,12 +80,12 @@
             left: 0;
             opacity: 0;
             transition: opacity 1s ease-in-out;
-            height: 500px; 
+            height: 500px;
         }
         .card img {
             width: 100%;
-            height: 100%; 
-            object-fit: cover; 
+            height: 100%;
+            object-fit: cover;
         }
         .card.active {
             opacity: 1;
@@ -93,7 +93,7 @@
         }
         .card-description {
             position: absolute;
-            bottom: 60px; 
+            bottom: 60px;
             left: 20px;
             background: rgba(0, 0, 0, 0.6);
             color: white;
@@ -115,15 +115,35 @@
             padding: 10px;
         }
         @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+            }
+            .logo {
+                position: static;
+                margin-bottom: 10px;
+            }
+            .nav-links {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .navbar a {
+                padding: 10px;
+            }
             .card-description {
                 font-size: 16px;
                 padding: 8px;
+            }
+            .content {
+                padding: 20px;
             }
         }
         @media (max-width: 480px) {
             .card-description {
                 font-size: 14px;
                 padding: 6px;
+            }
+            .content {
+                padding: 10px;
             }
         }
     </style>
@@ -202,7 +222,7 @@
             cards[currentCard].classList.add('active');
         }
 
-        setInterval(showNextCard, 10000); 
+        setInterval(showNextCard, 10000);
     </script>
 
 </body>

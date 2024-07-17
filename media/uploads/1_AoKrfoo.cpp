@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Assignment</title>
+    <title>File Upload</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -25,7 +25,7 @@
             background-color: #fff;
         }
         table {
-            width: 80%;
+            width: 90%;
             margin: 20px auto;
             border-collapse: collapse;
             background-color: #fff;
@@ -35,7 +35,7 @@
         }
         th, td {
             border: 1px solid #ddd;
-            padding: 8px;
+            padding: 12px;
             text-align: left;
         }
         th {
@@ -65,8 +65,6 @@
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            width: 80%;
-            max-width: 600px;
             background-color: white;
             padding: 20px;
             border: 1px solid #0073e6;
@@ -84,41 +82,9 @@
             background: rgba(0, 0, 0, 0.5);
             z-index: 1000;
         }
-        .popup label {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 16px;
-            color: #0073e6;
-        }
-        .popup input[type="text"] {
-            width: 95%;
-            height: 50px;
-            padding: 10px;
-            border: 1px solid #0073e6;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
-        .popup button {
-            width: auto;
-            margin: 5px;
-            padding: 5px 10px;
-            font-size: 14px;
-        }
-        .deleteButton {
-            background-color: #ff4d4d;
-            color: #fff;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .deleteButton:hover {
-            background-color: #cc0000;
-        }
         @media (max-width: 600px) {
             table, th, td {
-                font-size: 12px;
+                font-size: 14px;
             }
             button {
                 width: 90%;
@@ -128,55 +94,39 @@
                 width: 90%;
                 font-size: 14px;
             }
-            .popup {
-                width: 90%;
-            }
         }
     </style>
 </head>
 <body>
-    <h1>Student Assignment Grader</h1>
-    <form id="uploadForm" enctype="multipart/form-data" method="POST" action="{% url 'index' %}">
-        {% csrf_token %}
-        <input type="file" id="fileInput" accept=".c, .cpp" name="files" multiple>
-        <table id="fileTable">
-            <thead>
-                <tr>
-                    <th>File Name</th>
-                    <th>File Size</th>
-                    <th>File Type</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-        <input type="hidden" id="promptInput" name="prompt">
-        <button type="button" id="assessButton">Assess</button>
-        <button type="submit" id="submitForm" style="display: none;">Submit</button>
-    </form>
+    <h1>File Upload</h1>
+    <input type="file" id="fileInput" multiple>
+    <table id="fileTable">
+        <thead>
+            <tr>
+                <th>File Name</th>
+                <th>File Size</th>
+                <th>File Type</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <button id="assessButton">Assess</button>
 
     <div class="overlay" id="overlay"></div>
     <div class="popup" id="popup">
         <h2>Assess</h2>
         <label for="promptInput">Enter a value:</label>
-        <input type="text" id="promptValue">
+        <input type="text" id="promptInput">
         <button id="submitPrompt">Submit</button>
         <button id="closePopup">Close</button>
     </div>
 
     <script>
-
-        window.onload = function() {
-            {% if success_message %}
-                alert("{{ success_message }}");
-            {% elif error_message %}
-                alert("{{ error_message }}");
-            {% endif %}
-        };
         document.getElementById('fileInput').addEventListener('change', function(event) {
             const fileTableBody = document.getElementById('fileTable').getElementsByTagName('tbody')[0];
-            fileTableBody.innerHTML = ''; 
+            fileTableBody.innerHTML = ''; // Clear existing rows
 
             Array.from(event.target.files).forEach(file => {
                 const row = fileTableBody.insertRow();
@@ -188,11 +138,16 @@
 
                 cellName.textContent = file.name;
                 cellSize.textContent = (file.size / 1024).toFixed(2) + ' KB';
-                cellType.textContent = file.name.split('.').pop(); 
+                cellType.textContent = file.type;
 
                 const deleteButton = document.createElement('button');
                 deleteButton.textContent = 'Delete';
-                deleteButton.className = 'deleteButton';
+                deleteButton.style.backgroundColor = '#ff4d4d';
+                deleteButton.style.color = '#fff';
+                deleteButton.style.border = 'none';
+                deleteButton.style.padding = '5px 10px';
+                deleteButton.style.borderRadius = '5px';
+                deleteButton.style.cursor = 'pointer';
                 deleteButton.addEventListener('click', function() {
                     fileTableBody.deleteRow(row.rowIndex - 1);
                 });
@@ -211,11 +166,10 @@
         });
 
         document.getElementById('submitPrompt').addEventListener('click', function() {
-            const promptValue = document.getElementById('promptValue').value;
-            document.getElementById('promptInput').value = promptValue;
+            const promptValue = document.getElementById('promptInput').value;
+            alert('Prompt value submitted: ' + promptValue);
             document.getElementById('overlay').style.display = 'none';
             document.getElementById('popup').style.display = 'none';
-            document.getElementById('submitForm').click(); 
         });
     </script>
 </body>
