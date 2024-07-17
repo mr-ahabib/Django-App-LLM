@@ -1,0 +1,209 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Grader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .navbar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #1e90ff;
+            padding: 10px 20px;
+            position: relative;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 20px;
+        }
+        .navbar a:hover {
+            background-color: #4682b4;
+            border-radius: 4px;
+        }
+        .logo {
+            position: absolute;
+            left: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #1e90ff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            top: calc(100% + 10px);
+            left: 0;
+            width: 200px;
+        }
+        .nav-links .projects {
+            position: relative;
+        }
+        .nav-links .projects:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background-color: #4682b4;
+        }
+        .card-container {
+            width: 100%;
+            position: relative;
+            margin-top: 1px; 
+        }
+        .card {
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            height: 500px; 
+        }
+        .card img {
+            width: 100%;
+            height: 100%; 
+            object-fit: cover; 
+        }
+        .card.active {
+            opacity: 1;
+            position: relative;
+        }
+        .card-description {
+            position: absolute;
+            bottom: 60px; 
+            left: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 90%;
+        }
+        .content {
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+        .footer {
+            background-color: #1e90ff;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+        @media (max-width: 768px) {
+            .card-description {
+                font-size: 16px;
+                padding: 8px;
+            }
+        }
+        @media (max-width: 480px) {
+            .card-description {
+                font-size: 14px;
+                padding: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="logo">LLM Grader</div>
+        <div class="nav-links">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="#people">People</a>
+            <a href="#publications">Publications</a>
+            <div class="projects">
+                <a href="#projects">Projects</a>
+                <div class="dropdown-content">
+                    <a href="{% url 'index' %}">LLM Grader</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-container">
+        <div class="card active">
+            <img src="{% static 'img/img1.jpg' %}" alt="Research">
+            <div class="card-description">
+                <h3>LLM Research</h3>
+                <p>We are working on LLM research and collaborations. Our team is focused on exploring innovative solutions and advancing the state-of-the-art in language models. Through rigorous experimentation and collaboration, we aim to push the boundaries of what's possible in natural language processing.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="{% static 'img/img2.jpg' %}" alt="Join Us">
+            <div class="card-description">
+                <h3>Join Us</h3>
+                <p>Join us in advancing the field of language models. We welcome researchers, engineers, and enthusiasts to collaborate with us. By bringing together diverse perspectives and expertise, we strive to create impactful solutions that benefit the global community.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="{% static 'img/img3.jpg' %}" alt="Innovation">
+            <div class="card-description">
+                <h3>Innovation</h3>
+                <p>Our team is dedicated to cutting-edge research and innovation. We believe in pushing the envelope and exploring new frontiers in language model technology. Our projects are designed to challenge conventional thinking and deliver breakthrough results.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="{% static 'img/img4.png' %}" alt="Collaboration">
+            <div class="card-description">
+                <h3>Collaboration</h3>
+                <p>We aim to foster collaborations with industry leaders. By partnering with top organizations and institutions, we leverage collective expertise to drive meaningful advancements in language models. Our collaborative efforts are geared towards solving real-world problems.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="{% static 'img/img5.jpg' %}" alt="Applications">
+            <div class="card-description">
+                <h3>Applications</h3>
+                <p>Our projects focus on practical applications of LLMs. From improving customer service to enhancing educational tools, we develop solutions that make a tangible impact. Our goal is to create user-friendly and effective applications powered by advanced language models.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <h2>About Us</h2>
+        <p>Welcome to LLM Grader, where we focus on advanced research in large language models (LLMs). Our mission is to explore innovative solutions and advance the state-of-the-art in natural language processing. Through rigorous experimentation and collaboration, we push the boundaries of what's possible in language model technology.</p>
+    </div>
+
+    <div class="footer">
+        <p>Location: Dhaka, Bangladesh | Phone: +880123456789 | Email: info@llmgrader.org</p>
+    </div>
+
+    <script>
+        let currentCard = 0;
+        const cards = document.querySelectorAll('.card');
+
+        function showNextCard() {
+            cards[currentCard].classList.remove('active');
+            currentCard = (currentCard + 1) % cards.length;
+            cards[currentCard].classList.add('active');
+        }
+
+        setInterval(showNextCard, 10000); 
+    </script>
+
+</body>
+</html>

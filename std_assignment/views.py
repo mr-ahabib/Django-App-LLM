@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from .models import Prompts, studentAssignment
 from django.views.decorators.csrf import csrf_exempt
-
+def home(request):
+    return render(request, 'home.html')
 @csrf_exempt
 def index(request):
     if request.method == 'POST':
